@@ -1,11 +1,6 @@
 ﻿using Console_gsm_poc;
 
 using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
-
-// Assuming your SecretManagerAccess class is in the same namespace or referenced.
-// namespace Console_gsm_poc; 
 
 class Program
 {
@@ -13,7 +8,7 @@ class Program
     {
         // 1. Build the configuration
         IConfiguration configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory()) // Sets the path to the app's root
+            .SetBasePath(Directory.GetCurrentDirectory()) 
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Loads the file
             .Build();
 
@@ -34,3 +29,4 @@ class Program
         secretManager.AccessAllSecrets(projectId);
     }
 }
+
