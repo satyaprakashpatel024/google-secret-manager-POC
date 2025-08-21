@@ -55,11 +55,7 @@ public class SecretManagerAccess
         }
     }
     
-    public Dictionary<string, string> GroupSecretsByLabel(
-        SecretManagerServiceClient client,
-        PagedEnumerable<ListSecretsResponse, Secret> secrets,
-        string labelKey,
-        string labelValue)
+    public Dictionary<string, string> GroupSecretsByLabel(SecretManagerServiceClient client, PagedEnumerable<ListSecretsResponse, Secret> secrets, string labelKey, string labelValue)
     {
         var secretDictionary = new Dictionary<string, string>();
 
@@ -92,9 +88,7 @@ public class SecretManagerAccess
     /// </summary>
     /// <param name="client">The active SecretManagerServiceClient, needed to access secret values.</param>
     /// <param name="allSecrets">The PagedEnumerable list of secrets you have already fetched.</param>
-    public void ProcessAndDisplaySecrets(
-        SecretManagerServiceClient client,
-        PagedEnumerable<ListSecretsResponse, Secret> allSecrets)
+    public void ProcessAndDisplaySecrets(SecretManagerServiceClient client, PagedEnumerable<ListSecretsResponse, Secret> allSecrets)
     {
         // 1. Parse the secrets into a structured dictionary
         var parser = new SecretParser();
@@ -106,8 +100,14 @@ public class SecretManagerAccess
         // Example: Accessing a complex object
         if (applicationConfig.TryGetValue("mongodb", out var mongoConfObj) && mongoConfObj is DatabaseConfig mongoConfig)
         {
-            Console.WriteLine($"MongoDB Host: {mongoConfig.Host}");
-            Console.WriteLine($"MongoDB User: {mongoConfig.Username}");
+            Console.WriteLine($"MongoDB Host: {mongoConfig}");
+            
+        }
+        
+        if (applicationConfig.TryGetValue("mysql", out var mySqlConfObj) && mySqlConfObj is DatabaseConfig mySqlConfig)
+        {
+            Console.WriteLine($"MySQL Host: {mySqlConfig}");
+            Console.WriteLine($"MySQL User: {mySqlConfig.Username}");
         }
 
         // Example: Accessing a simple string value

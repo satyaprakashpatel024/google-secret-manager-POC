@@ -19,6 +19,11 @@ public class DatabaseConfig
 
     [JsonPropertyName("database")]
     public string Database { get; set; }
+
+    public override string ToString()
+    {
+        return this.Username+":"+this.Password+":"+this.Host+":"+this.Port;
+    }
 }
 
 // Model for Redis secret
@@ -32,4 +37,9 @@ public class RedisConfig
 
     [JsonPropertyName("port")]
     public int Port { get; set; }
+
+    public override string ToString()
+    {
+        return this.Password+":"+this.Host+":"+this.Port;
+    }
 }

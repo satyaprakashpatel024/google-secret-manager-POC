@@ -34,6 +34,10 @@ public class SecretParser
             switch (secret.SecretName.SecretId)
             {
                 case "mongodb":
+                    var mongoConfig = JsonSerializer.Deserialize<DatabaseConfig>(payload, jsonOptions);
+                    config[secret.SecretName.SecretId] = mongoConfig;
+                    break;
+                
                 case "mysql":
                     // Deserialize the JSON payload into a DatabaseConfig object
                     var dbConfig = JsonSerializer.Deserialize<DatabaseConfig>(payload, jsonOptions);
