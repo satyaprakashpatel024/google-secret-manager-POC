@@ -28,8 +28,8 @@ class Program
         }
 
         // 3. Pass the projectId to your method
-        Console.WriteLine($"Using Project ID from configuration: {projectId}");
-        
+        // Console.WriteLine($"Using Project ID from configuration: {projectId}");
+        //
         var secretManager = new SecretManagerAccess();
         secretManager.AccessAllSecrets(projectId);
     }
