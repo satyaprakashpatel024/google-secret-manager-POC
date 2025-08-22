@@ -1,5 +1,5 @@
 ﻿using Console_gsm_poc;
-
+using Console_gsm_poc.gsm.secrets.settings;
 using Microsoft.Extensions.Configuration;
 
 class Program
@@ -9,24 +9,25 @@ class Program
         // 1. Build the configuration
         IConfiguration configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory()) 
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Loads the file
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
-        // 2. Read the ProjectId from the configuration
-        //    The colon ":" is used to access nested sections in the JSON.
         string projectId = configuration["GcpSettings:ProjectId"];
+        
+        // var appSettings = new AppSettings(configuration);
 
-        if (string.IsNullOrEmpty(projectId))
-        {
-            Console.WriteLine("ProjectId not found in appsettings.json. Please check your configuration.");
-            return;
-        }
+        // 4. You can now access all your settings through the appSettings object
+        //Console.WriteLine($"Using Project ID: {projectId}");
+        // Console.WriteLine($"Max Retry Attempts: {appSettings.SecretManagerMaxRetryAttempts}");
+        // Console.WriteLine($"Retry Interval (ms): {appSettings.SecretManagerRetryIntervalInMilliseconds}");
+        // Console.WriteLine($"Cache Expiration (hrs): {appSettings.SecretManagerCacheExpirationInHours}");
+
 
         // 3. Pass the projectId to your method
         // Console.WriteLine($"Using Project ID from configuration: {projectId}");
         //
-        var secretManager = new SecretManagerAccess();
-        secretManager.AccessAllSecrets(projectId);
+        GoogleSecretHandler c = new GoogleSecretHandler(configuration);
+        c.ConfigCredentialsFromSecretManager();
     }
 }
 

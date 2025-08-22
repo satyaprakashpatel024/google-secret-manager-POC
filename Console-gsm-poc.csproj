@@ -12,6 +12,7 @@
       <PackageReference Include="Google.Cloud.SecretManager.V1" Version="2.6.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.8" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8" />
+      <PackageReference Include="System.Runtime.Caching" Version="10.0.0-preview.7.25380.108" />
     </ItemGroup>
 
     <ItemGroup>

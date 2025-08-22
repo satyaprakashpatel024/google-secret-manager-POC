@@ -83,11 +83,6 @@ public class SecretManagerAccess
         return secretDictionary;
     }
     
-    /// <summary>
-    /// Parses a pre-fetched list of secrets and displays the structured configuration.
-    /// </summary>
-    /// <param name="client">The active SecretManagerServiceClient, needed to access secret values.</param>
-    /// <param name="allSecrets">The PagedEnumerable list of secrets you have already fetched.</param>
     public void ProcessAndDisplaySecrets(SecretManagerServiceClient client, PagedEnumerable<ListSecretsResponse, Secret> allSecrets)
     {
         // 1. Parse the secrets into a structured dictionary
