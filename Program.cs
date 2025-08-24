@@ -28,6 +28,7 @@ class Program
         //
         GoogleSecretHandler c = new GoogleSecretHandler(configuration);
         c.ConfigCredentialsFromSecretManager();
+
     }
 }
 
