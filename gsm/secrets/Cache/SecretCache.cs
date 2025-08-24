@@ -15,12 +15,12 @@ public class SecretCache : ISecretCache
         _AppSettings = appSettings;
     }
 
-    public List<Secrets> GetFromCache(string key)
+    public List<AppSecrets> GetFromCache(string key)
     {
         Object obj = MemoryCache.Default.Get(key);
         if (obj != null)
         {
-            return JsonConvert.DeserializeObject<List<Secrets>>(obj as string);
+            return JsonConvert.DeserializeObject<List<AppSecrets>>(obj as string);
         }
         return null;
     }

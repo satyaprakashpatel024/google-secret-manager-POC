@@ -26,7 +26,7 @@ public class GoogleSecretHandler
         var client = clientBuilder.Build();
         var secretCache = new SecretCache(new AppSettings(config));
         _projectId = config["GcpSettings:ProjectId"];
-        _secretManager = new SecretManager(secretCache, client);
+        _secretManager = new SecretManager(secretCache, client,_projectId);
         _logger.Info("Successfully connected to gcp...");
     }
 
@@ -43,25 +43,10 @@ public class GoogleSecretHandler
 
 
 // 1. UNIFIED APPROACH - Get all secrets (both JSON and plain text)
-        var allSecrets = await _secretManager.GetAllSecretsByLabel(_projectId, "database", "sql");
-        Console.WriteLine(allSecrets.Count+" secrets found.");
-        foreach (var kvp in allSecrets)
-        {
-            Console.WriteLine($"Secret: {kvp.Key}");
-            if (kvp.Value.IsJson)
-            {
-                Console.WriteLine($"Type: JSON, Content: {kvp.Value.AsString()}");
-                // Access JSON properties
-                var apiKey = kvp.Value.GetJsonProperty("username");
-                if (apiKey != null)
-                    Console.WriteLine($"API Key from JSON: {apiKey}");
-            }
-            else
-            {
-                Console.WriteLine($"Type: Plain Text, Content: {kvp.Value.PlainText}");
-            }
+        // List<string> cacheKeys = new List<string>() { "sql-server","mongo","redis" };
+        var allSecrets =  _secretManager.GetJsonSecrets("mongodb", "client-portal", "mongo");
+        Console.WriteLine(allSecrets+" secrets found.");
+        allSecrets =  _secretManager.GetJsonSecrets("mongodb", "client-portal", "mongo");
 
-            kvp.Value.Dispose();
-        }
     }
 }

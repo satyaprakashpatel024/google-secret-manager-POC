@@ -5,6 +5,6 @@ namespace Console_gsm_poc.gsm.secrets.Cache;
 
 public interface ISecretCache
 {
-    List<Secrets> GetFromCache(String key);
+    List<AppSecrets> GetFromCache(String key);
     void AddToCache(String key, string secrets);
 }
